@@ -1,0 +1,1 @@
+This repo will be used to complete my Natural Language Processing exercises in my Codeup Data Science Class: Florence Cohort.
