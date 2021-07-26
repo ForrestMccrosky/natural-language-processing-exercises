@@ -39,3 +39,40 @@ def process_articles(article_list):
     
     ## returning the full website list
     return website_list
+
+
+
+def get_blog_articles(category_list):
+    '''
+    This function is designed to take in category list for a specific blog 
+    (https://inshorts.com/en/read/) and scrape all the articles from each category for 
+    the blog.
+    
+    Then the function will divide each categorized article and split them into article
+    titles, article bodies, and their respective category
+    '''
+    
+    base_url = 'https://inshorts.com/en/read/'
+    
+    article_list = []
+    # make the http request and turn the response into a beautiful soup object
+    for category in category_list:
+        response = requests.get(f'{base_url}{category}')
+        html = response.text
+        soup = bs4.BeautifulSoup(html, 'html.parser')
+        
+        ## getting our title into the title variable
+        titles = soup.findAll('div', class_= 'news-card-title')
+        
+        content = soup.findAll('div', itemprop = 'articleBody') ## getting the article content
+        ## for all the articles
+        for title in range(len(titles)):
+            ## creating the dictionary
+            my_dict = {"Title": titles[title].text, 'Content': content[title].text, 
+                       'Category': category}
+            
+            ## appending the dictionary for each iteration
+            article_list.append(my_dict)
+        
+    ## returning the full article list
+    return article_list
