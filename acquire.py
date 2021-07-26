@@ -38,7 +38,9 @@ def process_articles(article_list):
         website_list.append(my_dict)
     
     ## returning the full website list
-    return website_list
+    df = pd.DataFrame(website_list)
+    
+    return df
 
 
 
@@ -75,4 +77,6 @@ def get_blog_articles(category_list):
             article_list.append(my_dict)
         
     ## returning the full article list
-    return article_list
+    df = pd.DataFrame(article_list)
+    
+    return df
