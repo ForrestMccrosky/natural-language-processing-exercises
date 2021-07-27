@@ -105,3 +105,6 @@ def remove_stopwords(string, extra_words = [], exclude_words = []):
     
     return article_without_stopwords
 
+
+######################## Complete Prep
+
