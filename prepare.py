@@ -100,9 +100,6 @@ def remove_stopwords(string, extra_words = [], exclude_words = []):
     ## removing stop words and setting it equal to filtered_words
     filtered_words = [w for w in words if w not in stopword_list]
     
-    print('Removed {} stopwords'.format(len(words) - len(filtered_words)))
-    print('---')
-    
     ## recreating our string without stopwords
     article_without_stopwords = ' '.join(filtered_words)
     
