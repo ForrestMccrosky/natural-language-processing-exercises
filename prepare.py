@@ -32,7 +32,7 @@ def basic_clean(string):
     .decode('utf-8', 'ignore')
     
     ## removing special characters
-    string = re.sub(r"[^a-z0-9'\s]", '', string)
+    string = re.sub(r"[^a-z0-9\s]", '', string)
     
     return string
 
@@ -106,5 +106,33 @@ def remove_stopwords(string, extra_words = [], exclude_words = []):
     return article_without_stopwords
 
 
-######################## Complete Prep
+######################## Complete Prepair Function ############################
+
+## utilizes all functions above to create columns and returns dataframe
+
+def prep_content_columns(df):
+    '''
+    This function is designed to take in a dataframe of web scraped content.
+    
+    The function will then take the content (body of article) of each article scraped
+    and apply basic_clean, tokenize, and stop words removal functions as a Clean column.
+    
+    It will then use the Clean column to create stemmed words and Lemmatized words columns
+    '''
+    ## making Clean column w/ basic_clean function
+    df['Clean'] = df['Content'].apply(basic_clean)
+    
+    ## tokenizing the Clean column with the tokenize function
+    df['Clean'] = df['Clean'].apply(tokenize) 
+
+    ## removing stopwords from the Clean column w/ function
+    df['Clean'] = df['Clean'].apply(remove_stopwords)
+    
+    ## stemming the words from Clean
+    df['Stemmed'] = df['Clean'].apply(stem) 
+
+    ## lemmatize the words from Clean
+    df['Lemmatized'] = df['Clean'].apply(lemmatize) 
+    
+    return df
 
